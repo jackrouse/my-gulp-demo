@@ -94,6 +94,7 @@ module.exports = {
     //     }
     // })
     new VueLoaderPlugin()
-  ]
+  ],
+  devtool: '#source-map'
 }
 

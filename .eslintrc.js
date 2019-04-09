@@ -2,24 +2,28 @@
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  // parser: 'babel-eslint',
   parserOptions: {
+    "parser": "babel-eslint",
     sourceType: 'module'
   },
   env: {
     browser: true,
   },
-  extends: 'standard',
-  plugins: [
-    'html'
+  extends: [
+    'plugin:vue/essential',
+    'standard'
   ],
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: './webpack.config.js',
-      }
-    }
-  },
+  plugins: [
+    'vue'
+  ],
+  // settings: {
+  //   'import/resolver': {
+  //     webpack: {
+  //       config: './webpack.config.js',
+  //     }
+  //   }
+  // },
   // add your custom rules here
   'rules': {
     // allow debugger during development

@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import 'babel-polyfill'
 
 // const G = Object.assign({ a: 1, b: 2 }, { c: 3 });
 // console.log(G);
@@ -6,14 +6,13 @@ import 'babel-polyfill';
 // console.log(G.b);
 // console.log(G.c);
 
-
 // const fn = x => x.name;
 
 // fn({ name: 'bbb' });
 /* eslint-disable no-new */
-import Vue from 'vue/dist/vue.min';
-import { fdcJsonp } from 'fdc-common/http';
-import config from '@/static/util/env.config';
+import Vue from 'vue/dist/vue.min'
+import { fdcJsonp } from 'fdc-common/http'
+import config from '@/static/util/env.config'
 
 new Vue({
   el: '#main',
@@ -41,32 +40,32 @@ new Vue({
       //   type: 2,
       //   updateTime: 1528365679164,
       // },
-    ],
+    ]
   },
   methods: {
-    openDialog(item) {
-      console.log(item);
-      this.ownerid = item.ownerid;
-      this.name = '';
-      this.tel = '';
-      this.isShow = true;
+    openDialog (item) {
+      console.log(item)
+      this.ownerid = item.ownerid
+      this.name = ''
+      this.tel = ''
+      this.isShow = true
     },
-    toggleTip() {
-      this.isshowTip = !this.isshowTip;
+    toggleTip () {
+      this.isshowTip = !this.isshowTip
     },
-    togglePlay() {
-      const bgMusic = document.getElementById('audio');
+    togglePlay () {
+      const bgMusic = document.getElementById('audio')
       if (bgMusic.paused) {
-        bgMusic.play();
-        this.isPlay = false;
+        bgMusic.play()
+        this.isPlay = false
         // $(this).removeClass('paused');
       } else {
-        bgMusic.pause();
-        this.isPlay = true;
+        bgMusic.pause()
+        this.isPlay = true
         // $(this).addClass('paused');
       }
     },
-    submitForm() {
+    submitForm () {
       if (this.checkForm()) {
         // const ajax = true;
         // if (ajax) {
@@ -80,34 +79,34 @@ new Vue({
           userName: this.name,
           phone: this.tel,
           type: 2,
-          ownerid: this.ownerid,
+          ownerid: this.ownerid
         }).then((res) => {
           if (res.msg === '报名成功') {
-            this.isShow1 = true;
-            this.getListData();
+            this.isShow1 = true
+            this.getListData()
           }
         }).catch(() => {
-          this.name = '';
-          this.tel = '';
-          this.istelsame = true;
-        });
+          this.name = ''
+          this.tel = ''
+          this.istelsame = true
+        })
       }
     },
-    checkForm() {
-      const reg = /^1[0-9]{10}$/;
+    checkForm () {
+      const reg = /^1[0-9]{10}$/
       if (!this.name) {
-        alert('姓名不能为空！');
-        return false;
+        alert('姓名不能为空！')
+        return false
       } else if (!this.tel) {
-        alert('电话不能为空！');
-        return false;
+        alert('电话不能为空！')
+        return false
       } else if (!reg.test(this.tel)) {
-        alert('电话格式不正确！');
-        return false;
+        alert('电话格式不正确！')
+        return false
       }
-      return true;
+      return true
     },
-    getListData() {
+    getListData () {
       // http.get('../static/mork/dataList.json')
       //   .then((res) => {
       //     console.log(res);
@@ -115,33 +114,33 @@ new Vue({
       //   });
       fdcJsonp(config.sandbox_url, 'activeweb.restful.alllist')
         .then((res) => {
-          console.log(res);
-          this.listData = res.data;
+          console.log(res)
+          this.listData = res.data
         })
         .catch((res) => {
-          console.log(res);
-        });
-    },
-  },
-  created() {
-    this.getListData();
-  },
-  mounted() {
-    function audioAutoPlay(id) {
-      const audio = document.getElementById(id);
-      const play = function () {
-        audio.play();
-        document.removeEventListener('touchstart', play, false);
-      };
-      audio.play();
-      document.addEventListener('WeixinJSBridgeReady', () => { // 微信
-        play();
-      }, false);
-      document.addEventListener('YixinJSBridgeReady', () => { // 易信
-        play();
-      }, false);
-      document.addEventListener('touchstart', play, false);
+          console.log(res)
+        })
     }
-    audioAutoPlay('audio');
   },
-});
+  created () {
+    this.getListData()
+  },
+  mounted () {
+    function audioAutoPlay (id) {
+      const audio = document.getElementById(id)
+      const play = function () {
+        audio.play()
+        document.removeEventListener('touchstart', play, false)
+      }
+      audio.play()
+      document.addEventListener('WeixinJSBridgeReady', () => { // 微信
+        play()
+      }, false)
+      document.addEventListener('YixinJSBridgeReady', () => { // 易信
+        play()
+      }, false)
+      document.addEventListener('touchstart', play, false)
+    }
+    audioAutoPlay('audio')
+  }
+})

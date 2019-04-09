@@ -4,16 +4,15 @@
 // console.log(G.b);
 // console.log(G.c);
 
-
 // import { fdcJsonp } from 'fdc-common/http';
 // const fn = x => x.name;
 
 // fn({ name: 'bbb' });
 /* eslint-disable no-new */
-import Vue from 'vue/dist/vue.runtime.min';
-import App from '@/views/app.vue';
+import Vue from 'vue/dist/vue.runtime.min'
+import App from './app.vue'
 
 new Vue({
   el: '#app',
-  render: h => h(App),
-});
+  render: h => h(App)
+})

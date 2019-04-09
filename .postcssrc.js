@@ -10,7 +10,7 @@ module.exports = {
     },
     "postcss-px-to-viewport": {
       unitToConvert: 'px',
-      viewportWidth: 750,
+      viewportWidth: 10800,
       unitPrecision: 5,
       propList: ['*'],
       viewportUnit: 'rem',

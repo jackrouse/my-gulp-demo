@@ -10,14 +10,12 @@
   </div>
 </template>
 
-
 <script>
 export default {
-  data() {
+  data () {
     return {
-      a: 1,
-    };
-  },
-};
+      a: 1
+    }
+  }
+}
 </script>
-
