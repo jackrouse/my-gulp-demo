@@ -1,0 +1,103 @@
+/**
+* Remove default margin.
+*/
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+p,
+blockquote,
+th,
+td {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, Arial, Tahoma, sans-serif;
+  font-size: 14px;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  margin: 0 auto;
+  color: #333;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  outline:none;
+}
+
+a:hover,a:active,a:visited,a:link,a:focus{
+  text-decoration: none;
+  outline:none;
+}
+
+button{
+  outline: none;
+}
+
+img {
+  vertical-align: middle;
+  border: 0;
+}
+
+input[type="botton"]{
+  -webkit-appearance:none;
+}
+
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+input[type="search"]{
+  -webkit-appearance: textfield;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 000px 1000px whiteinset;
+}
+
+.nowrap{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nowrap-hide{
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+.nowra-clamp-one{
+  -webkit-line-clamp: 1;
+}
+
+/* a,a:hover,a:active,a:visited,a:link,a:focus{
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+  outline:none;
+  background: none;
+  text-decoration: none;
+} */

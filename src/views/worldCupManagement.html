@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <link
+    href="//static.fdc.com.cn/common/images/logo-160x160.png"
+    rel="Shortcut Icon"
+    type="image/x-icon">
+    <link href="//static.fdc.com.cn/common/images/logo-160x160.png" rel="apple-touch-icon-precomposed">
+
+
+
+
+    <meta name="keywords" content="">
+    <meta name="description" content="世界杯管理">
+    <!-- <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> -->
+    <link rel="stylesheet" href="@STATIC/css/worldCupManagement.css">
+    <link rel="stylesheet" href="../static/styles/common/reset.css" inline>
+    <script src="../../node_modules/amfe-flexible/index.js" inline></script>
+    <title>世界杯管理</title>
+  </head>
+  <body>
+    <!-- @@include('header.html', {
+      "title": "testPage"
+    }) -->
+    <div id="main" v-cloak>
+        <a class="back-icon" href="../index.html"></a>
+        <div class="table-wrap">
+          <div class="main-tit">猜冠军</div>
+          <div class="table-tit"></div>
+          <div class="table-body">
+            <ul class="table-list">
+              <!-- <li class="table-item">
+                <div class="country"><img src="@STATIC/images/gx.png" alt=""><span>俄罗斯</span></div>
+                <div class="score"></div>
+                <div class="button"></div>
+              </li>
+              <li class="table-item">
+                  <div class="country"><img src="@STATIC/images/gx.png" alt=""><span>俄罗斯</span></div>
+                  <div class="score"><div class="score-box"><span class="score-num"></span></div></div>
+                  <div class="button"><i class="button-icon"></i></div>
+                </li> -->
+                  <li v-for="item in listData" class="table-item">
+                    <div class="country"><img :src="item.headimgurl" alt=""><span>{{item.nickName}}</span></div>
+                    <div class="score"><div class="score-box"><span :style="{width:item.roseCount/1+'%'}" class="score-num"></span></div></div>
+                    <div class="button" @click="openDialog(item)">{{item.activeState==1?'淘汰':'取消淘汰'}}</div>
+                  </li>
+            </ul>
+          </div>
+          <div class="main-tit">猜胜队</div>
+
+          <mt-field label=" 国家1" placeholder="国家1" v-model.trim="ct1"></mt-field>
+          <mt-field label="国家2" placeholder="国家2" type="email" v-model.trim="ct2"></mt-field>
+          <mt-field label="时间" @click.native="openPicker"  placeholder="时间" readonly type="datetime" :value="time | dateFormat"></mt-field>
+          <mt-button @click="add" type="primary" size="large">新增</mt-button>
+          <mt-button @click="del" type="danger" size="large">删除</mt-button>
+        </div>
+
+        <mt-datetime-picker
+          ref="picker"
+          type="datetime"
+          v-model="time">
+        </mt-datetime-picker>
+
+  <script src="@STATIC/js/worldCupManagement.js"></script>
+  </body>
+</html>

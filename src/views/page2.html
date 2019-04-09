@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <link
+    href="//static.fdc.com.cn/common/images/logo-160x160.png"
+    rel="Shortcut Icon"
+    type="image/x-icon">
+    <link href="//static.fdc.com.cn/common/images/logo-160x160.png" rel="apple-touch-icon-precomposed">
+
+    <meta itemprop="name" content="世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家"/>
+    <meta itemprop="image" content="//static.fdc.com.cn/worldcup/wcup-logo-blank.jpg" />
+    <meta name="description" itemprop="description" content="世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家" />
+
+    <meta name="keywords" content="">
+    <meta name="description" content="世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家">
+    <!-- <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"> -->
+    <link rel="stylesheet" href="@STATIC/css/page2.css">
+    <link rel="stylesheet" href="../static/styles/common/reset.css" inline>
+    <script src="../../node_modules/amfe-flexible/index.js" inline></script>
+    <title>世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家</title>
+  </head>
+  <body>
+    <!-- @@include('header.html', {
+      "title": "testPage"
+    }) -->
+
+
+
+    <div id="main" v-cloak>
+        <button class="btn-music" :class="{'paused':isPlay}" @click="togglePlay">
+            <i class="icon-note"></i>
+        </button>
+
+        <audio id="audio" loop autoplay="autoplay">
+            <source src="@STATIC/music/cup.mp3" type="audio/mpeg">
+        </audio>
+        <a class="back-icon" href="../index.html"></a>
+        <div class="table-wrap">
+          <div class="table-tit"></div>
+          <div class="table-body">
+            <ul class="table-list">
+              <!-- <li class="table-item">
+                <div class="country"><img src="@STATIC/images/gx.png" alt=""><span>俄罗斯</span></div>
+                <div class="score"></div>
+                <div class="button"></div>
+              </li>
+              <li class="table-item">
+                  <div class="country"><img src="@STATIC/images/gx.png" alt=""><span>俄罗斯</span></div>
+                  <div class="score"><div class="score-box"><span class="score-num"></span></div></div>
+                  <div class="button"><i class="button-icon"></i></div>
+                </li> -->
+                <!-- <li v-for="item in listData" class="table-item">
+                  <div class="country"><img :src="item.headimgurl" alt=""><span>{{item.nickName}}</span></div>
+                  <div class="score"><div class="score-box"><span :style="{width:item.roseCount/10+'%'}" class="score-num"></span></div></div>
+                  <div class="button"><i @click="openDialog(item)" class="button-icon"></i></div>
+                </li> -->
+                <li v-for="(item,index) in listData" class="table-item" :class="{'disabled':currentTime>=item.createTime}">
+                    <div class="time">{{item.createTime | dateFormat}}</div>
+                    <div class="team">
+                      <div class="team1" @click="setCheckBox(0,index,item)" :class="{'is-active':checkArr[index][0]}"><img :src="item.ownerImg"/><span class="name">{{item.ownerName}}</span></div>
+                      <span class="vs">vs</span>
+                      <div class="team2" @click="setCheckBox(1,index,item)" :class="{'is-active':checkArr[index][1]}"><img :src="item.toImg"/><span class="name">{{item.toName}}</span></div>
+                    </div>
+                    <div class="ping" v-if="item.createTime<=1530363600000" @click="setCheckBox(2,index,item)" :class="{'is-active':checkArr[index][2]}"><i class="ping-icon"></i></div>
+                    <div class="button"><i @click="openDialog(item,index)" class="button-icon"></i></div>
+                  </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dialog">
+          <div @click="isShow=false;isShow1=false" v-show="isShow || isShow1" class="dialog-mask"></div>
+
+          <div v-show="isShow" class="dialog-submit" style="display:none">
+            <div @click="isShow=false;istelsame=false" class="dialog-close"></div>
+            <div class="dialog-content">
+              <p v-show="!istelsame" class="dialog-text-1">请填写真实姓名和电话，如果您猜中比赛结果，将获得<span class="red">精美礼品一份！</span></p>
+              <p v-show="istelsame" class="dialog-text-1"><span class="red">您已经参与该场比赛竞猜咯，请坐等比赛结果吧！</span></p>
+              <div class="dialog-input dialog-input-name"><span>姓名:</span><input v-model.trim="name" placeholder="请输入姓名" maxlength="10" type="text"></div>
+              <div class="dialog-input dialog-input-tel"><span>电话:</span><input v-model.trim="tel" placeholder="请输入电话" maxlength="11" type="text"></div>
+              <div class="dialog-btn" @click="submitForm"></div>
+            </div>
+          </div>
+
+          <div v-show="isShow1" class="dialog-submit" style="display:none">
+              <div @click="isShow1=false;isShow=false" class="dialog-close"></div>
+              <div class="dialog-content">
+                <p class="dialog-text-2">提交成功！</br>希望您支持的球队可以获得获胜！</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="dialog-tip" :class="{'is-active':isshowTip}">
+            <div @click="toggleTip" class="toggle-btn"></div>
+          </div>
+
+    </div>
+
+  <script src="@STATIC/js/page2.js"></script>
+  <script src="//static.fdc.com.cn/jwxxxxx-1.2.0.js"></script>
+  <script type="text/javascript">
+    // var curUrl = 'beshared.html?toid='+window.location.href.split('ownerid=')[1];
+    var curUrl = window.location.href.split('#')[0]
+    document.write('<script src="//gw.fdc.com.cn/ucaction/ucaction.share.third.stringbody.info?currentUrl=' +encodeURIComponent(curUrl) + '"></scr' + 'ipt>')
+  </script>
+  <script type="text/javascript">
+    wx.ready(function () {
+      wx.onMenuShareTimeline({
+        title: '世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家',
+        link: window.location.href,
+        imgUrl: 'https://static.fdc.com.cn/worldcup/wcup-logo-blank.jpg',
+        trigger: function (res) {},
+        success: function (res) {
+          // window.location.href="sign.shtml"
+        },
+        cancel: function () {},
+        fail: function (res) {}
+      });
+      wx.onMenuShareAppMessage({
+        title: '世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家',
+        desc: '世界杯竞猜，谁是赢家？小亿告诉你，你才是赢家',
+        link: window.location.href,
+        imgUrl: 'https://static.fdc.com.cn/worldcup/wcup-logo-blank.jpg',
+        type: 'link',
+        dataUrl: '',
+        success: function () {
+        },
+        cancel: function () {}
+      });
+    })
+  </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?c04eb4cfcdb509de5f325e6678c13408";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+  </body>
+</html>

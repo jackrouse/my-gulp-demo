@@ -1,0 +1,303 @@
+@import './mixin/mixin.scss';
+[v-cloak] {
+  display: none;
+}
+body{
+  background-image: url(@STATIC/images/bg/h5-02_01.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 1737px;
+  background-color:#131227;
+}
+#main {
+
+}
+.table{
+  &-wrap{
+    position: absolute;
+    top:740px;
+    left:50%;
+    transform: translateX(-50%);
+  }
+  &-tit{
+    width: 957px;
+    height:81px;
+    background: url(@STATIC/images/bg/h5-02_03.png) no-repeat;
+    background-size: cover;
+  }
+  &-body{
+    margin:0 auto 85px;
+    width:912px;
+    border:1px solid #ffffff;/*px*/
+    .hairlines &{
+      border-top:none;
+    }
+  }
+  &-item{
+    border-bottom: 1px solid #ffffff;/*px*/
+    height:100px;
+    display: flex;
+    align-items: center;
+    &:last-child{
+      border: 0;
+    }
+    >div{
+      height:100%;
+      border-right: 1px solid #FFFFFF;/*px*/
+      display: flex;
+      align-items: center;
+      &:last-child{
+        border: 0;
+      }
+    }
+
+  }
+}
+.country{
+  font-size: 45px;
+  color:#ffffff;
+  width:391px;
+  img{
+    width:79px;
+    height:55px;
+    margin:0 38px;
+  }
+  >span{
+    max-width: 230px;
+    @include ellipsis();
+  }
+}
+.score{
+  width:310px;
+  &-box{
+    margin-left: 18px;
+    width:270px;
+    height:40px;
+    position: relative;
+  }
+  &-num{
+    position: absolute;
+    top:0;
+    left:0;
+    display: block;
+    width:0%;
+    height:40px;
+    background: #f16450;
+  }
+}
+.button{
+  flex:1;
+  justify-content: center;
+  &-icon{
+    width:130px;
+    height:65px;
+    background: url(@STATIC/images/btn/btn_03.png) no-repeat;
+    background-size: cover;
+  }
+}
+
+.dialog{
+  &-mask{
+    z-index:2;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+  }
+  &-submit{
+    z-index:3;
+    // visibility: hidden;
+    width:821px;
+    height:1087px;
+    position: fixed;
+    top:160px;
+    left:50%;
+    transform: translateX(-50%);
+    background:url(@STATIC/images/bg/h5-02_02.png) no-repeat;
+    background-size: cover;
+  }
+  &-close{
+    position: absolute;
+    top:200px;
+    right:47px;
+    width:60px;
+    height:60px;
+  }
+  &-content{
+    width:600px;
+    margin:413px auto 0;
+  }
+  &-input{
+    width:600px;
+    height:90px;
+    border:5px solid #63a0ae;
+    display: flex;
+    align-items: center;
+    padding:0 20px;
+    &:nth-of-type(1){
+      margin-bottom: 42px;
+    }
+    >span{
+      width:108px;
+      font-size: 45px;
+      color:#999999;
+    }
+    >input{
+      flex:1;
+      min-width: 0px;
+      border: none;
+      outline: none;
+    }
+  }
+  &-btn{
+    width:355px;
+    height:114px;
+    background: url(@STATIC/images/btn/btn_04.png) no-repeat;
+    background-size: cover;
+    margin:35px auto 0;
+  }
+}
+
+.dialog-text-1{
+  height:230px;
+  text-indent: 2em;
+  font-size: 36px;
+  color:#999999;
+  line-height: 66px;
+}
+.dialog-text-2{
+  height:230px;
+  text-align: center;
+  padding-top:130px;
+  font-size: 36px;
+  color:#999999;
+  line-height: 66px;
+}
+.red{
+  color:#ff0000;
+}
+
+.dialog-tip{
+  animation:shake-vertical 5.4s ease 0s infinite both;
+  &.is-active{
+    right:0;
+    animation:none;
+  }
+  transition: all 0.5s;
+  position: fixed;
+  top:52px;
+  right:-890px;
+  width:1013px;
+  height:1262px;
+  background: url(@STATIC/images/bg/h5-02_04.png) no-repeat;
+  background-size: cover;
+  .toggle-btn{
+    position: absolute;
+    top:60px;
+    left:0;
+    width:140px;
+    height:126px;
+  }
+}
+
+// @keyframes flash {
+//   from, 50%, to {
+//     opacity: 1;
+//   }
+
+//   25%, 75% {
+//     opacity: 0;
+//   }
+// }
+
+@keyframes shake-vertical {
+  0%,
+  to {
+    transform: translateY(0)
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateY(-8px)
+  }
+  20%,
+  40%,
+  60% {
+    transform: translateY(8px)
+  }
+  80% {
+    transform: translateY(6.4px)
+  }
+  90% {
+    transform: translateY(-6.4px)
+  }
+}
+
+.back-icon{
+  z-index:1;
+  display: block;
+  position: fixed;
+  top:20px;
+  left:20px;
+  width:50px;
+  height:69px;
+  background: url(@STATIC/images/back_01.png) no-repeat;
+  background-size:cover;
+}
+
+
+.btn-music {
+  width: 64px;
+  height: 64px;
+  background-color: transparent;
+  position: fixed;
+  top: 48px;
+  right: 48px;
+  z-index: 999;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  padding: 0;
+  animation: btnMusicAni 3s infinite linear;
+  i {
+      width: 64px;
+      height: 64px;
+      text-align: center;
+      line-height: 64px;
+      color: #fff;
+      background: url(@STATIC/images/music.png) no-repeat;
+      background-size: cover;
+      position: absolute;
+      top: -4px;
+      left: -4px;
+  }
+  &.paused {
+      opacity: 0.4;
+      animation: none;
+  }
+}
+
+@keyframes btnMusicAni {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.disabled{
+  position: relative;
+  &::before{
+    content:'';
+    z-index:1;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    background: rgba(255, 255, 255, .7);
+  }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+
+    <meta itemprop="name" content="竞猜世界杯，这个夏天我们都是预言帝"/>
+    <meta itemprop="image" content="//static.fdc.com.cn/worldcup/wcup-logo-blank.jpg" />
+    <meta name="description" itemprop="description" content="竞猜世界杯，这个夏天我们都是预言帝" />
+
+    <meta name="keywords" content="">
+    <meta name="description" content="竞猜世界杯，这个夏天我们都是预言帝">
+    <link rel="stylesheet" href="@STATIC/css/main.css">
+    <link
+    href="//static.fdc.com.cn/common/images/logo-160x160.png"
+    rel="Shortcut Icon"
+    type="image/x-icon">
+    <link href="//static.fdc.com.cn/common/images/logo-160x160.png" rel="apple-touch-icon-precomposed">
+    <link rel="stylesheet" href="./static/styles/common/reset.css" inline>
+    <script src="../node_modules/amfe-flexible/index.js" inline></script>
+
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+    <title>竞猜世界杯，这个夏天我们都是预言帝</title>
+  </head>
+  <body>
+
+    <div id="main">
+
+        <button class="btn-music" :class="{'paused':isPlay}" @click="togglePlay">
+            <i class="icon-note"></i>
+        </button>
+
+        <audio id="audio" loop autoplay="autoplay">
+            <source src="static/music/cup.mp3" type="audio/mpeg">
+        </audio>
+      <!-- @@include('header.html', {
+        "title": "indexPage"
+      })
+      <img src="/static/images/gulp.png" />
+    </div>
+    <div class="sprite-test">
+
+    </div> -->
+    <a class="main_btn main_btn_01" href="./views/page1.html"></a>
+    <a class="main_btn main_btn_02" href="./views/page2.html"></a>
+  </body>
+  <script src="@STATIC/js/main.js"></script>
+  <script src="//static.fdc.com.cn/jwxxxxx-1.2.0.js"></script>
+  <script type="text/javascript">
+    // var curUrl = 'beshared.html?toid='+window.location.href.split('ownerid=')[1];
+    var curUrl = window.location.href.split('#')[0]
+    document.write('<script src="//gw.fdc.com.cn/ucaction/ucaction.share.third.stringbody.info?currentUrl=' +encodeURIComponent(curUrl) + '"></scr' + 'ipt>')
+  </script>
+  <script type="text/javascript">
+    wx.ready(function () {
+      wx.onMenuShareTimeline({
+        title: '竞猜世界杯，这个夏天我们都是预言帝',
+        link: window.location.href,
+        imgUrl: 'https://static.fdc.com.cn/worldcup/wcup-logo-blank.jpg',
+        trigger: function (res) {},
+        success: function (res) {
+          // window.location.href="sign.shtml"
+        },
+        cancel: function () {},
+        fail: function (res) {}
+      });
+      wx.onMenuShareAppMessage({
+        title: '竞猜世界杯，这个夏天我们都是预言帝',
+        desc: '竞猜世界杯，这个夏天我们都是预言帝',
+        link: window.location.href,
+        imgUrl: 'https://static.fdc.com.cn/worldcup/wcup-logo-blank.jpg',
+        type: 'link',
+        dataUrl: '',
+        success: function () {
+        },
+        cancel: function () {}
+      });
+    })
+  </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?c04eb4cfcdb509de5f325e6678c13408";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+</html>
