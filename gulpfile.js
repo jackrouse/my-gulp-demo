@@ -1,7 +1,7 @@
 const config = require('./config')
 const fs = require('fs');
 const path = require('path')
-const merge = require('merge-stream');
+// const merge = require('merge-stream');
 const chalk = require('chalk')
 const gulp = require('gulp')
 const inlinesource = require('gulp-inline-source')
@@ -16,14 +16,14 @@ const notify = require('gulp-notify')
 const cache  = require('gulp-cache')
 const imagemin = require('gulp-imagemin')
 const pngquant = require('imagemin-pngquant')
-// const uglify = require('gulp-uglify')
 const rev = require('gulp-rev')
 const revCollector = require('gulp-rev-collector')
 const revRewrite = require('gulp-rev-rewrite')
 const replace = require('gulp-replace');
 const uglify = require('gulp-uglify-es').default
+// const uglify = require('gulp-uglify')
 const eslint = require('gulp-eslint')
-const stripDebug = require('gulp-strip-debug')
+// const stripDebug = require('gulp-strip-debug')
 const babel = require('gulp-babel')
 const sequence = require('gulp-sequence')
 const zip = require('gulp-zip')
@@ -167,6 +167,7 @@ gulp.task('html', () => {
   const manifest = gulp.src('rev/**/*.json')
   return gulp.src(config.dev.html)
     .pipe(plumber(onError))
+    .pipe(inlinesource())
     .pipe(fileinclude({
       prefix: '@@',
       basepath: respath('src/include/')
@@ -174,12 +175,11 @@ gulp.task('html', () => {
     .pipe(replace('@STATIC',staticPath))
     .pipe(gulpif(condition,revRewrite({ manifest })))
     .pipe(gulpif(condition, htmlmin({
-      removeComments: true,
-      collapseWhitespace: true,
+      // removeComments: true,
+      // collapseWhitespace: true,
       minifyJS: true,
       minifyCSS: true
     })))
-    .pipe(inlinesource())
   //   .pipe(cdn({
   //     dir: './dist',
   //     root: {
@@ -264,7 +264,7 @@ gulp.task('images', () => {
 gulp.task('eslint', () => {
   return gulp.src(config.dev.script)
    .pipe(plumber(onError))
-   .pipe(gulpif(condition, stripDebug()))
+  //  .pipe(gulpif(condition, stripDebug()))
    .pipe(eslint({ configFle: './.eslintrc' }))
    .pipe(eslint.format())
    .pipe(eslint.failAfterError());
@@ -273,13 +273,13 @@ gulp.task('eslint', () => {
 
 const useEslint = config.useEslint ? ['eslint'] : [];
 gulp.task('script', useEslint, () => {
-  return gulp.src(config.dev.script)
+  return gulp.src(config.dev.scriptjs)
     .pipe(plumber(onError))
     .pipe(gulpif(condition, babel({
       presets: ['env']
     })))
-    .pipe(gulpif(config.useWebpack, webpackStream(webpackConfig, webpack)))
-    .pipe(gulpif(condition, uglify()))
+    .pipe(gulpif(config.useWebpack, webpackStream(webpackConfig, webpack),gulpif(condition, uglify())))
+    // .pipe()
     .pipe(gulpif(condition, rev()))
     .pipe(gulp.dest(config.build.script))
     .pipe(gulpif(condition,rev.manifest()))

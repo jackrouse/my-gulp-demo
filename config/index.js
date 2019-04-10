@@ -18,6 +18,7 @@ module.exports = {
     allhtml: resolveDev('/**/*.html'),
     styles: resolveDev('static/styles/**/*.{scss,css}'),
     script: resolveDev('static/js/**/*.{js,vue}'),
+    scriptjs: resolveDev('static/js/**/*.js'),
     images: resolveDev('static/images/**/*.{png,jpg,gif,svg}'),
     sprite: resolveDev('static/images/sprite'),
     envConfig:resolveDev('static/util/env.config.js'),

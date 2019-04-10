@@ -1,8 +1,9 @@
 {
-  "common/reset.css": "common/reset-6ff3a7e540.css",
-  "main.css": "main-da19abf75d.css",
+  "common/reset.css": "common/reset-8f23f2cfbb.css",
+  "main.css": "main-e9a790a6f0.css",
   "mixin/mixin.css": "mixin/mixin-d41d8cd98f.css",
-  "page1.css": "page1-e6b39a6589.css",
-  "page2.css": "page2-2deceaf557.css",
-  "worldCupManagement.css": "worldCupManagement-6ebeccdc2b.css"
+  "page1.css": "page1-0a23c979c6.css",
+  "page2.css": "page2-36374db89d.css",
+  "test.css": "test-65b6a61b73.css",
+  "worldCupManagement.css": "worldCupManagement-d9300778cd.css"
 }
