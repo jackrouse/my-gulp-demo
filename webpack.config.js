@@ -22,6 +22,19 @@ function getEntry() {
     return files
 }
 
+const env = process.env.NODE_ENV
+const pluginList = []
+const uglify = new webpack.optimize.UglifyJsPlugin({
+  compress:{
+      warnings:false,
+  },
+  sourceMap: true
+})
+
+if(env === 'production'){
+  pluginList.push(uglify)
+}
+
 module.exports = {
   cache: true,
   entry: getEntry(),
@@ -62,7 +75,7 @@ module.exports = {
           { loader: 'style-loader' },
           { loader: 'css-loader' },
           { loader: 'sass-loader'},
-          // 'postcss-loader'
+          'postcss-loader'
         ]
       },
       {
@@ -88,11 +101,7 @@ module.exports = {
     ]
   },
   plugins:[
-    new webpack.optimize.UglifyJsPlugin({
-        compress:{
-            warnings:false
-        }
-    }),
+    ...pluginList,
     new VueLoaderPlugin()
   ],
   devtool: '#source-map'

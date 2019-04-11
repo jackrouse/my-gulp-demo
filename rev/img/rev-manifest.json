@@ -17,10 +17,6 @@
   "btn/btn_03.png": "btn/btn_03-a981f98696.png",
   "btn/btn_03_01.png": "btn/btn_03_01-d0ac9fa2e8.png",
   "btn/btn_04.png": "btn/btn_04-ccaca58576.png",
-  "icon/icon_index.png": "icon/icon_index-73f4244141.png",
-  "icon/icon_test.png": "icon/icon_test-4e5151406f.png",
   "music.png": "music-69fd0ffc89.png",
-  "ok.png": "ok-0a8175ac6d.png",
-  "sprite/test/dialogclose.png": "sprite/test/dialogclose-4e5151406f.png",
-  "sprite/test/dialogloding.gif": "sprite/test/dialogloding-a9501e4583.gif"
+  "ok.png": "ok-0a8175ac6d.png"
 }

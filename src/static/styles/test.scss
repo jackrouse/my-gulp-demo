@@ -1,3 +1,5 @@
+@import './sprite_css/_icon_test';
 body{
   background: yellow;
+  @include sprite(dialogclose);
 }

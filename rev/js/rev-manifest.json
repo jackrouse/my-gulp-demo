@@ -1,8 +1,14 @@
 {
-  "main.js": "main-c37041cc07.js",
-  "page1.js": "page1-b1ffa1d463.js",
-  "page2.js": "page2-080a4e1efc.js",
-  "page3.js": "page3-0de180d73a.js",
-  "test.js": "test-f6373df113.js",
-  "worldCupManagement.js": "worldCupManagement-be34be5944.js"
+  "main.js": "main-a1e96ff621.js",
+  "main.js.map": "main-a212071662.js.map",
+  "page1.js": "page1-17ec177a24.js",
+  "page1.js.map": "page1-27a9640d20.js.map",
+  "page2.js": "page2-d9d3ca8f57.js",
+  "page2.js.map": "page2-22c38f9af6.js.map",
+  "page3.js": "page3-a0a5311590.js",
+  "page3.js.map": "page3-1f52533fa4.js.map",
+  "test.js": "test-ee7eeb5c33.js",
+  "test.js.map": "test-1fad9bbb2a.js.map",
+  "worldCupManagement.js": "worldCupManagement-fa50b2d19c.js",
+  "worldCupManagement.js.map": "worldCupManagement-537015293d.js.map"
 }

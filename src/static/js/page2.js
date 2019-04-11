@@ -1,4 +1,4 @@
-// import 'babel-polyfill'
+import 'babel-polyfill'
 
 /* eslint-disable no-new */
 import Vue from 'vue/dist/vue.min'

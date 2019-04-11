@@ -1,7 +1,8 @@
 const config = require('./config')
 const fs = require('fs');
 const path = require('path')
-// const merge = require('merge-stream');
+const merge = require('merge-stream');
+const buffer = require('vinyl-buffer');
 const chalk = require('chalk')
 const gulp = require('gulp')
 const inlinesource = require('gulp-inline-source')
@@ -17,7 +18,7 @@ const cache  = require('gulp-cache')
 const imagemin = require('gulp-imagemin')
 const pngquant = require('imagemin-pngquant')
 const rev = require('gulp-rev')
-const revCollector = require('gulp-rev-collector')
+// const revCollector = require('gulp-rev-collector')
 const revRewrite = require('gulp-rev-rewrite')
 const replace = require('gulp-replace');
 const uglify = require('gulp-uglify-es').default
@@ -84,7 +85,7 @@ var iconFolder = function() {
     return {
         'name': filesName,
         'src' : filesSrc
-    };;
+    };
 }
 
 /**
@@ -94,50 +95,58 @@ var iconFolder = function() {
  * 在images文件夹下icon文件夹,新建一个文件夹就可以
  *
  */
-// var csssPrites = function() {
-//     var folder = iconFolder();
-//     var folderName = folder.name;
-//     var folderSrc = folder.src;
-//     var tasks = folderSrc.map(function (item, i) {
-//         var imgName = `images/icon/icon_${folderName[i]}.png`;
-//         var cssName = `styles/sprite_css/_icon_${folderName[i]}.scss`;
-//         var imgPath = `../images/icon/icon_${folderName[i]}.png`;
-//         return gulp.src(item) // 需要合并的图片地址
-//             .pipe(spritesmith({
-//                 imgName: imgName, // 保存合并后图片的地址
-//                 cssName: cssName, // 保存合并后对于css样式的地址
-//                 imgPath: imgPath,
-//                 padding: 10,  // 合并时两个图片的间距
-//                 algorithm: 'binary-tree', // 注释1
-//                 cssTemplate: './scss.template.handlebars' // 模板
-//                 // cssTemplate: function (data) {
-//                 //     var arr=[];
-//                 //     data.sprites.forEach(function (sprite) {
-//                 //         arr.push(".icon-"+sprite.name+
-//                 //         "{" +
-//                 //         "background-image: url('"+sprite.escaped_image+"');"+
-//                 //         "background-position: "+sprite.px.offset_x+"px "+sprite.px.offset_y+"px;"+
-//                 //         "width:"+sprite.px.width+";"+
-//                 //         "height:"+sprite.px.height+";"+
-//                 //         "}\n");
-//                 //     });
-//                 //     return arr.join("");
-//                 // }
-//             }))
-//             .pipe(gulp.dest('src/static'));
-//     })
-//     return merge(tasks);
-// }
+var csssPrites = function() {
+    var folder = iconFolder();
+    var folderName = folder.name;
+    var folderSrc = folder.src;
+    var tasks = folderSrc.map(function (item, i) {
+        var imgName = `images/icon/icon_${folderName[i]}.png`;
+        var cssName = `styles/sprite_css/_icon_${folderName[i]}.scss`;
+        var imgPath = `@STATIC/images/icon/icon_${folderName[i]}.png`;
+        var spriteData = gulp.src(item) // 需要合并的图片地址
+            .pipe(spritesmith({
+                imgName: imgName, // 保存合并后图片的地址
+                cssName: cssName, // 保存合并后对于css样式的地址
+                imgPath: imgPath,
+                padding: 10,  // 合并时两个图片的间距
+                algorithm: 'binary-tree', // 注释1
+                cssTemplate: './scss.template.handlebars' // 模板
+                // cssTemplate: function (data) {
+                //     var arr=[];
+                //     data.sprites.forEach(function (sprite) {
+                //         arr.push(".icon-"+sprite.name+
+                //         "{" +
+                //         "background-image: url('"+sprite.escaped_image+"');"+
+                //         "background-position: "+sprite.px.offset_x+"px "+sprite.px.offset_y+"px;"+
+                //         "width:"+sprite.px.width+";"+
+                //         "height:"+sprite.px.height+";"+
+                //         "}\n");
+                //     });
+                //     return arr.join("");
+                // }
+            }))
+            var imgStream = spriteData.img
+            .pipe(buffer())
+            .pipe(gulpif(condition && config.useHash, rev()))
+            .pipe(gulp.dest(config.build.static))
+            .pipe(gulpif(condition && config.useHash,rev.manifest()))
+            .pipe(gulpif(condition && config.useHash,gulp.dest('rev/img/icon')));
+
+            var cssStream = spriteData.css.pipe(gulp.dest('./src/static'));
+            return merge(imgStream, cssStream);;
+    })
+    return merge(tasks);
+}
 
 
 
 /* 生成雪碧图 */
-// gulp.task('sprites', function () {
+gulp.task('sprites', function () {
 
-//   //console.log(config.dev.images)
-//     // 执行任务
-//     csssPrites();
-// });
+  //console.log(config.dev.images)
+    // 执行任务
+    csssPrites();
+});
 
 // 生成环境变量
 gulp.task('injectEnv', () => {
@@ -146,7 +155,7 @@ gulp.task('injectEnv', () => {
 
 function cbTask(task) {
   return new Promise((resolve, reject) => {
-    del(respath('dist'),respath('rev'))
+    del([respath('dist'),respath('rev')])
     .then(paths => {
       console.log(chalk.green(`
       -----------------------------
@@ -191,28 +200,28 @@ gulp.task('html', () => {
 })
 
 
-gulp.task('runrev', () => {
-  return gulp.src(['rev/**/*.json','dist/**/*.html'])
-  .pipe(plumber(onError))
-  .pipe(revCollector({
-    replaceReved: true,
-    dirReplacements: {
-        // '@css/': '/dist/static/css',
-        // '@js/': '/dist/static/js',
-        // '@cdn/': function(manifest_value) {
-        //   return '//hot.fdc.com.cn/2018zt/worldcup' + manifest_value;
-        // }
-      'static/': config.assetsPublicPath
-    }
-  }))
-  .pipe(gulp.dest(config.build.html))
-})
+// gulp.task('runrev', () => {
+//   return gulp.src(['rev/**/*.json','dist/**/*.html'])
+//   .pipe(plumber(onError))
+//   .pipe(revCollector({
+//     replaceReved: true,
+//     dirReplacements: {
+//         // '@css/': '/dist/static/css',
+//         // '@js/': '/dist/static/js',
+//         // '@cdn/': function(manifest_value) {
+//         //   return '//hot.fdc.com.cn/2018zt/worldcup' + manifest_value;
+//         // }
+//       'static/': config.assetsPublicPath
+//     }
+//   }))
+//   .pipe(gulp.dest(config.build.html))
+// })
 
 gulp.task('styles', () => {
   // var revManifest = JSON.parse(fs.readFileSync('rev/img/rev-manifest.json', {
   //   encoding: 'utf-8'
   // }))
-  const manifest = gulp.src('rev/img/rev-manifest.json')
+  const manifest = gulp.src('rev/img/**/*.json')
 
   // console.log(revManifest)
   return gulp.src(config.dev.styles)
@@ -234,16 +243,17 @@ gulp.task('styles', () => {
     //     // }
     //     return result
     //   })))
-    .pipe(gulpif(condition,revRewrite({ manifest })))
-    .pipe(gulpif(condition, rev()))
+    .pipe(gulpif(condition && config.useHash,revRewrite({ manifest })))
+    .pipe(gulpif(condition && config.useHash, rev()))
     .pipe(replace('@STATIC',staticPath))
     .pipe(gulp.dest(config.build.styles))
-    .pipe(gulpif(condition,rev.manifest()))
-    .pipe(gulpif(condition,gulp.dest('rev/css')))
+    .pipe(gulpif(condition && config.useHash,rev.manifest()))
+    .pipe(gulpif(condition && config.useHash,gulp.dest('rev/css')))
 })
 
-gulp.task('images', () => {
-  return gulp.src(config.dev.images)
+gulp.task('images', ['sprites'], () => {
+  // return gulp.src(config.dev.images)
+  return gulp.src([config.dev.images,'!**/sprite/**'])
     .pipe(plumber(onError))
     .pipe(cache(imagemin({
       progressive: true, // 无损压缩JPG图片
@@ -255,10 +265,10 @@ gulp.task('images', () => {
     //   svgoPlugins: [{removeViewBox: false}], // 不移除svg的viewbox属性
     //   use: [pngquant()] // 使用pngquant插件进行深度压缩
     // }))
-    .pipe(gulpif(condition, rev()))
+    .pipe(gulpif(condition && config.useHash, rev()))
     .pipe(gulp.dest(config.build.images))
-    .pipe(gulpif(condition,rev.manifest()))
-    .pipe(gulpif(condition,gulp.dest('rev/img')))
+    .pipe(gulpif(condition && config.useHash,rev.manifest()))
+    .pipe(gulpif(condition && config.useHash,gulp.dest('rev/img')))
 })
 
 gulp.task('eslint', () => {
@@ -280,10 +290,10 @@ gulp.task('script', useEslint, () => {
     })))
     .pipe(gulpif(config.useWebpack, webpackStream(webpackConfig, webpack),gulpif(condition, uglify())))
     // .pipe()
-    .pipe(gulpif(condition, rev()))
+    .pipe(gulpif(condition && config.useHash, rev()))
     .pipe(gulp.dest(config.build.script))
-    .pipe(gulpif(condition,rev.manifest()))
-    .pipe(gulpif(condition,gulp.dest('rev/js' )))
+    .pipe(gulpif(condition && config.useHash,rev.manifest()))
+    .pipe(gulpif(condition && config.useHash,gulp.dest('rev/js' )))
 })
 
 gulp.task('static', () => {

@@ -20,6 +20,7 @@ module.exports = {
     script: resolveDev('static/js/**/*.{js,vue}'),
     scriptjs: resolveDev('static/js/**/*.js'),
     images: resolveDev('static/images/**/*.{png,jpg,gif,svg}'),
+    // images: [resolveDev('static/images/**/*.{png,jpg,gif,svg}'),!resolveDev('static/images/icon/**')],
     sprite: resolveDev('static/images/sprite'),
     envConfig:resolveDev('static/util/env.config.js'),
     "env": {
@@ -61,5 +62,6 @@ module.exports = {
   server,
   useEslint: true,
   useWebpack: true,
+  useHash:true,
   productionZip: false
 }

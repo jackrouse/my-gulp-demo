@@ -1,0 +1,14 @@
+@mixin sprite($filename) {
+
+  &:before {
+    content: "";
+    display: inline-block;
+
+    @if $filename == dialogclose {
+      background-image: url(@STATIC/images/icon/icon_test.png);
+      background-position: 0px 0px;
+      height: 33px;
+      width: 33px;
+    }
+  }
+}
