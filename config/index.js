@@ -11,7 +11,8 @@ function resolveBuild(dir) {
 
 module.exports = {
   assetsSubDirectory:'static',
-  assetsPublicPath:'//static.fdc.com.cn/',
+  assetsPublicPath:'/',
+  // assetsPublicPath:'//static.fdc.com.cn/',
   dev: {
     static: './static/**/*',
     html:  [resolveDev('/**/*.html'), '!./src/include/**/*'],
@@ -60,7 +61,7 @@ module.exports = {
   },
 
   server,
-  useEslint: true,
+  useEslint: false,
   useWebpack: true,
   useHash:true,
   productionZip: false

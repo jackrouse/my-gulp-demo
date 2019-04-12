@@ -8,19 +8,19 @@ module.exports = {
     'postcss-cssnext': {
       'warnForDuplicates': false
     },
-    "postcss-px-to-viewport": {
-      unitToConvert: 'px',
-      viewportWidth: 10800,
-      unitPrecision: 5,
-      propList: ['*'],
-      viewportUnit: 'rem',
-      fontViewportUnit: 'rem',
-      selectorBlackList: ['.ignore', '.hairlines','.mobileSelect'],
-      minPixelValue: 1,
-      mediaQuery: false,
-      replace: true,
-      exclude: [],
-    },
+    // "postcss-px-to-viewport": {
+    //   unitToConvert: 'px',
+    //   viewportWidth: 10800,
+    //   unitPrecision: 5,
+    //   propList: ['*'],
+    //   viewportUnit: 'rem',
+    //   fontViewportUnit: 'rem',
+    //   selectorBlackList: ['.ignore', '.hairlines','.mobileSelect'],
+    //   minPixelValue: 1,
+    //   mediaQuery: false,
+    //   replace: true,
+    //   exclude: [],
+    // },
     // 自动添加前缀
     "autoprefixer": {
       "browsers": [

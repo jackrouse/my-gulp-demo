@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 // const G = Object.assign({ a: 1, b: 2 }, { c: 3 });
 // console.log(G);
 // console.log(G.a);
