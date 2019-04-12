@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path')
 const merge = require('merge-stream');
 const buffer = require('vinyl-buffer');
+const filter = require('gulp-filter');
 const chalk = require('chalk')
 const gulp = require('gulp')
 const inlinesource = require('gulp-inline-source')
@@ -283,6 +284,7 @@ gulp.task('eslint', () => {
 
 const useEslint = config.useEslint ? ['eslint'] : [];
 gulp.task('script', useEslint, () => {
+  const f = filter(['**', '!**/*.js.map'],{restore: true});
   return gulp.src(config.dev.scriptjs)
     .pipe(plumber(onError))
     .pipe(gulpif(condition, babel({
@@ -290,7 +292,9 @@ gulp.task('script', useEslint, () => {
     })))
     .pipe(gulpif(config.useWebpack, webpackStream(webpackConfig, webpack),gulpif(condition, uglify())))
     // .pipe()
+    .pipe(f)
     .pipe(gulpif(condition && config.useHash, rev()))
+    .pipe(f.restore)
     .pipe(gulp.dest(config.build.script))
     .pipe(gulpif(condition && config.useHash,rev.manifest()))
     .pipe(gulpif(condition && config.useHash,gulp.dest('rev/js' )))
