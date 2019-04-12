@@ -174,7 +174,7 @@ function cbTask(task) {
 }
 
 gulp.task('html', () => {
-  const manifest = gulp.src('rev/**/*.json')
+  // const manifest = gulp.src('rev/**/*.json')
   return gulp.src(config.dev.html)
     .pipe(plumber(onError))
     .pipe(inlinesource())
@@ -183,7 +183,6 @@ gulp.task('html', () => {
       basepath: respath('src/include/')
     }))
     .pipe(replace('@STATIC',staticPath))
-    .pipe(gulpif(condition,revRewrite({ manifest })))
     .pipe(gulpif(condition, htmlmin({
       // removeComments: true,
       // collapseWhitespace: true,
@@ -201,28 +200,32 @@ gulp.task('html', () => {
 })
 
 
-// gulp.task('runrev', () => {
-//   return gulp.src(['rev/**/*.json','dist/**/*.html'])
-//   .pipe(plumber(onError))
-//   .pipe(revCollector({
-//     replaceReved: true,
-//     dirReplacements: {
-//         // '@css/': '/dist/static/css',
-//         // '@js/': '/dist/static/js',
-//         // '@cdn/': function(manifest_value) {
-//         //   return '//hot.fdc.com.cn/2018zt/worldcup' + manifest_value;
-//         // }
-//       'static/': config.assetsPublicPath
-//     }
-//   }))
-//   .pipe(gulp.dest(config.build.html))
-// })
+gulp.task('runrev', () => {
+  const manifest = gulp.src('rev/**/*.json')
+  // return gulp.src(['rev/**/*.json','dist/**/*.html'])
+  // .pipe(plumber(onError))
+  // .pipe(revCollector({
+  //   replaceReved: true,
+  //   dirReplacements: {
+  //       // '@css/': '/dist/static/css',
+  //       // '@js/': '/dist/static/js',
+  //       // '@cdn/': function(manifest_value) {
+  //       //   return '//hot.fdc.com.cn/2018zt/worldcup' + manifest_value;
+  //       // }
+  //     'static/': config.assetsPublicPath
+  //   }
+  // }))
+  // .pipe(gulp.dest(config.build.html))
+  return gulp.src(respath('dist/**/*.{html,css}'))
+  .pipe(gulpif(condition,revRewrite({ manifest })))
+  .pipe(gulp.dest(respath('dist')))
+})
 
 gulp.task('styles', () => {
   // var revManifest = JSON.parse(fs.readFileSync('rev/img/rev-manifest.json', {
   //   encoding: 'utf-8'
   // }))
-  const manifest = gulp.src('rev/img/**/*.json')
+  // const manifest = gulp.src('rev/img/**/*.json')
 
   // console.log(revManifest)
   return gulp.src(config.dev.styles)
@@ -244,7 +247,7 @@ gulp.task('styles', () => {
     //     // }
     //     return result
     //   })))
-    .pipe(gulpif(condition && config.useHash,revRewrite({ manifest })))
+    // .pipe(gulpif(condition && config.useHash,revRewrite({ manifest })))
     .pipe(gulpif(condition && config.useHash, rev()))
     .pipe(replace('@STATIC',staticPath))
     .pipe(gulp.dest(config.build.styles))
@@ -341,9 +344,9 @@ gulp.task('build', () => {
   const task = ['injectEnv','script', 'images', 'styles','html','static']
   cbTask(task).then(() => {
     console.log(chalk.cyan('  Build complete.\n'))
-    // gulp.start('runrev',()=>{
-    //   console.log(chalk.cyan('  runrev complete.\n'))
-    // })
+    gulp.start('runrev',()=>{
+      console.log(chalk.cyan('  runrev complete.\n'))
+    })
     if (config.productionZip) {
       gulp.start('zip', () => {
         console.log(chalk.cyan('  Zip complete.\n'))
