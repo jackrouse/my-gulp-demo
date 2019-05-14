@@ -19,6 +19,7 @@ module.exports = {
     allhtml: resolveDev('/**/*.html'),
     styles: resolveDev('static/styles/**/*.{scss,css}'),
     script: resolveDev('static/js/**/*.{js,vue}'),
+    // scriptNormal: resolveDev('static/js/**/*.{js,vue}'),
     scriptjs: resolveDev('static/js/**/*.js'),
     images: resolveDev('static/images/**/*.{png,jpg,gif,svg}'),
     // images: [resolveDev('static/images/**/*.{png,jpg,gif,svg}'),!resolveDev('static/images/icon/**')],

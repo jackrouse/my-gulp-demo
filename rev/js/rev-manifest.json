@@ -1,8 +1,20 @@
 {
-  "main.js": "main-3a65c66940.js",
-  "page1.js": "page1-7a698a1020.js",
-  "page2.js": "page2-82eb1a7044.js",
-  "page3.js": "page3-a0a5311590.js",
-  "test.js": "test-5182e46b40.js",
-  "worldCupManagement.js": "worldCupManagement-67f858e8ae.js"
+  "common.js": "common-80fcadacab.js",
+  "common.js.map": "common-603d3f053f.js.map",
+  "main.js": "main-fbf715fb4a.js",
+  "main.js.map": "main-fb6ae0cec9.js.map",
+  "manifest.js": "manifest-d2509a1bff.js",
+  "manifest.js.map": "manifest-14e8b9aded.js.map",
+  "page1.js": "page1-1d42437d7f.js",
+  "page1.js.map": "page1-ae42bcfd65.js.map",
+  "page2.js": "page2-bc46ddc7f7.js",
+  "page2.js.map": "page2-4844da1cbc.js.map",
+  "page3.js": "page3-ff9021a196.js",
+  "page3.js.map": "page3-6fd8b02b7d.js.map",
+  "test.js": "test-48009ec7f4.js",
+  "test.js.map": "test-d26c876038.js.map",
+  "vendors.js": "vendors-5643942fe6.js",
+  "vendors.js.map": "vendors-8fbb19df5c.js.map",
+  "worldCupManagement.js": "worldCupManagement-914ca45378.js",
+  "worldCupManagement.js.map": "worldCupManagement-e4187dd6a6.js.map"
 }

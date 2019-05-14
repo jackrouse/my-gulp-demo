@@ -216,7 +216,7 @@ gulp.task('runrev', () => {
   //   }
   // }))
   // .pipe(gulp.dest(config.build.html))
-  return gulp.src(respath('dist/**/*.{html,css}'))
+  return gulp.src(respath('dist/**/*.{html,css,js}'))
   .pipe(gulpif(condition,revRewrite({ manifest })))
   .pipe(gulp.dest(respath('dist')))
 })
@@ -287,21 +287,23 @@ gulp.task('eslint', () => {
 
 const useEslint = config.useEslint ? ['eslint'] : [];
 gulp.task('script', useEslint, () => {
-  const f = filter(['**', '!**/*.js.map'],{restore: true});
+  // const f = filter(['**', '!**/*.js.map'],{restore: true});
   return gulp.src(config.dev.scriptjs)
     .pipe(plumber(onError))
     .pipe(gulpif(condition, babel({
       presets: ['env']
     })))
-    .pipe(gulpif(config.useWebpack, webpackStream(webpackConfig, webpack),gulpif(condition, uglify())))
+    .pipe(gulpif(config.useWebpack, webpackStream(webpackConfig, webpack)))
+    .pipe(gulpif(condition && !config.useWebpack, uglify()))
     // .pipe()
-    .pipe(f)
+    // .pipe(f)
     .pipe(gulpif(condition && config.useHash, rev()))
-    .pipe(f.restore)
+    // .pipe(f.restore)
     .pipe(gulp.dest(config.build.script))
     .pipe(gulpif(condition && config.useHash,rev.manifest()))
     .pipe(gulpif(condition && config.useHash,gulp.dest('rev/js' )))
 })
+
 
 gulp.task('static', () => {
   return gulp.src(config.dev.static)
@@ -344,9 +346,11 @@ gulp.task('build', () => {
   const task = ['injectEnv','script', 'images', 'styles','html','static']
   cbTask(task).then(() => {
     console.log(chalk.cyan('  Build complete.\n'))
-    gulp.start('runrev',()=>{
-      console.log(chalk.cyan('  runrev complete.\n'))
-    })
+    if(config.useHash){
+      gulp.start('runrev',()=>{
+        console.log(chalk.cyan('  runrev complete.\n'))
+      })
+    }
     if (config.productionZip) {
       gulp.start('zip', () => {
         console.log(chalk.cyan('  Zip complete.\n'))
